@@ -1,12 +1,8 @@
 import requests
 import misk
 
-
-
-
 token = misk.token
 
-# https://api.telegram.org/bot6055721431:AAFojZYoqPa_ZyicvRB3Qy9kagkkAUIWsYU/getUpdates
 
 URL = 'https://api.telegram.org/bot' + token + '/'
 
@@ -26,13 +22,15 @@ def get_message():
     return message
 
 
+def send_message(chat_id, text="Your message received ..."):
+    url = URL + f'sendmessage?chat_id={chat_id}&text={text}'
+    requests.get(url)
+
 
 def main():
-    print(get_message())
-    # d = get_updates()
-
-    # with open('updates.json', 'w') as file:
-    #     json.dump(d, file, indent=2, ensure_ascii=False)
+    answer = get_message()
+    chat_id = answer['chat_id']
+    send_message(chat_id, 'what do you want for dinner')
 
 
 if __name__ == '__main__':
